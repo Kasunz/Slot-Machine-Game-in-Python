@@ -53,7 +53,8 @@ C | D | B
 You won $60!
 You won lines:  2
 Current balance is $120
-Press enter to play (Q or q to quit): 
+Press enter to play (Q or q to quit): q
+You left with $120
 ```
 
 ## Project Structure
