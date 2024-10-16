@@ -1,7 +1,40 @@
+import random
 
 MAX_LINES = 3
 MAX_BET = 100
 MIN_BET = 1
+
+ROWS = 3
+COLS = 3
+
+symbol_count = {
+    'A' : 2,
+    'B' : 4,
+    'C' : 6,
+    'D' : 8
+}
+
+# Function to simulate a spin of the slot machine
+def get_slot_machine_spin(rows, cols, symbols):
+    all_symbols = []
+    # Append symbols to all_symbols list
+    for symbol, count in symbols.items():
+        for _ in range(count):
+            all_symbols.append(symbol)
+
+    columns = []
+    # Loop through columns and randomly choose symbols
+    for _ in range(cols):
+        column = []
+        current_symbol = all_symbols[:]
+        for _ in range(rows):
+            value = random.choice(current_symbol)
+            current_symbol.remove(value)
+            column.append(value)
+
+        columns.append(column)
+
+    return columns
 
 # Function to handle the deposit
 def deposit():
