@@ -27,13 +27,17 @@ def check_winning(columns, lines, bet, values):
     winnings_lines = []
     for line in range(lines):
         symbol = columns[0][line]
+        won_line = True  # Assume the line is winning
+
         for column in columns:
             symbol_to_check = column[line]
             if symbol != symbol_to_check:
+                won_line = False
                 break
-            else:
-                winnings += values[symbol] * bet
-                winnings_lines.append(line + 1)
+
+        if won_line:  # If the line is indeed winning, calculate the winnings
+            winnings += values[symbol] * bet
+            winnings_lines.append(line + 1)
 
     return winnings, winnings_lines
 
@@ -118,7 +122,6 @@ def get_bet():
 
 # Spin function to handle betting and spinning
 def spin(balance):
-
     lines = get_number_of_lines()
 
     while True:
