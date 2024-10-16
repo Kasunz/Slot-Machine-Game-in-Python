@@ -24,6 +24,7 @@ symbol_value = {
 # Function to check if there are winning lines
 def check_winning(columns, lines, bet, values):
     winnings = 0
+    winnings_lines = []
     for line in range(lines):
         symbol = columns[0][line]
         for column in columns:
@@ -32,8 +33,9 @@ def check_winning(columns, lines, bet, values):
                 break
             else:
                 winnings += values[symbol] * bet
+                winnings_lines.append(line + 1)
 
-    return winnings
+    return winnings, winnings_lines
 
 # Function to simulate a spin of the slot machine
 def get_slot_machine_spin(rows, cols, symbols):
@@ -114,9 +116,9 @@ def get_bet():
 
     return bet_amount
 
-# Main function to run the betting process
-def main():
-    balance = deposit()
+# Spin function to handle betting and spinning
+def spin(balance):
+
     lines = get_number_of_lines()
 
     while True:
@@ -135,9 +137,28 @@ def main():
     print_slot_machine(slots)
 
     # Check if there are any winnings
-    winnings = check_winning(slots, lines, bet, symbol_value)
+    winnings, winnings_lines = check_winning(slots, lines, bet, symbol_value)
     print(f"You won ${winnings}!")
+    print(f"You won lines: ", *winnings_lines)
+
+    # Update balance after winning or losing
+    return winnings - total_bet
+
+
+# Main function to run the betting process
+def main():
+    balance = deposit()
+    while True:
+        print(f"Current balance is ${balance}")
+        play = input("Press enter to play (Q or q to quit): ")
+        if play.lower() == 'q':
+            break
+        balance_change = spin(balance)
+        balance += balance_change
+
+    print(f"You left with ${balance}")
+
 
 main()
 
-# https://youtu.be/th4OBktqK1I
+# Resource get from -->  https://youtu.be/th4OBktqK1I
